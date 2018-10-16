@@ -1,0 +1,23 @@
+syntax="proto3";
+option java_multiple_files = true;
+package com.chinamobile.iot.microservice.grpc;
+
+//待检测文本
+message CheckTxt {
+    string txt = 1;
+    repeated string label = 2;
+}
+
+//检测文本中是否至少含有一个敏感词的结果
+message CheckOnceResult {
+    string tabooWord = 1;
+}
+//将文本中的敏感词全部替换结果
+message ReplaceTxt {
+    string txt = 1;
+}
+
+service TabooWordService {
+	rpc findFirstTabooWords(CheckTxt) returns (CheckOnceResult) {}
+	rpc replaceTabooWord(CheckTxt) returns (ReplaceTxt) {}
+}
